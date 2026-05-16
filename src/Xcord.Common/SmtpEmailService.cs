@@ -18,7 +18,7 @@ public sealed class SmtpEmailService : IEmailService
         _logger = logger;
     }
 
-    public async Task SendAsync(string to, string subject, string htmlBody)
+    public async Task SendAsync(string to, string subject, string htmlBody, CancellationToken cancellationToken = default)
     {
         if (_options.DevMode)
         {
@@ -41,16 +41,16 @@ public sealed class SmtpEmailService : IEmailService
             message.Body = bodyBuilder.ToMessageBody();
 
             using var client = new SmtpClient();
-            await client.ConnectAsync(_options.SmtpHost, _options.SmtpPort, _options.UseSsl);
+            await client.ConnectAsync(_options.SmtpHost, _options.SmtpPort, _options.UseSsl, cancellationToken);
 
             if (!string.IsNullOrWhiteSpace(_options.SmtpUsername) &&
                 !string.IsNullOrWhiteSpace(_options.SmtpPassword))
             {
-                await client.AuthenticateAsync(_options.SmtpUsername, _options.SmtpPassword);
+                await client.AuthenticateAsync(_options.SmtpUsername, _options.SmtpPassword, cancellationToken);
             }
 
-            await client.SendAsync(message);
-            await client.DisconnectAsync(true);
+            await client.SendAsync(message, cancellationToken);
+            await client.DisconnectAsync(true, cancellationToken);
 
             _logger.LogInformation("Email sent successfully to {To}", to);
         }

@@ -18,6 +18,7 @@ public sealed record Error
     public static Error BadRequest(string code, string message) => new(code, message, 400);
     public static Error Conflict(string code, string message) => new(code, message, 409);
     public static Error Forbidden(string code, string message) => new(code, message, 403);
+    public static Error PaymentRequired(string code, string message) => new(code, message, 402);
     public static Error Failure(string code, string message) => new(code, message, 500);
     public static Error RateLimited(string code, string message) => new(code, message, 429);
 }
