@@ -151,7 +151,4 @@ public sealed partial class GhostFontRenderer : IGhostFontRenderer
     }
 
     private readonly record struct Decoy(int X, int Y, int Frame);
-
-    // Implemented in Task 4 (GhostFontRenderer.Audio.cs); stub keeps the interface satisfied.
-    public byte[] RenderWav(string code, int seed) => throw new NotImplementedException();
 }
