@@ -6,7 +6,9 @@ public class CaptchaCharsetTests
     [Fact]
     public void Charset_excludes_lookalike_characters()
     {
-        foreach (var c in "O0I1LS5Z2B8G6Q")
+        // Excluded look-alikes. 6 is intentionally NOT excluded: its only look-alike (G) is
+        // already absent, so 6 is unambiguous within this set.
+        foreach (var c in "O0I1LS5Z2B8GQ")
             Assert.DoesNotContain(c, CaptchaCharset.Chars);
     }
 

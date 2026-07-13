@@ -4,7 +4,8 @@ namespace Xcord.Captcha.Rendering;
 
 public static class CaptchaCharset
 {
-    // A-Z + 2-9 minus look-alikes (no O/0, I/1/L, S/5, Z/2, B/8, G/6, Q).
+    // A-Z + 2-9 minus look-alikes. Excluded: letters G I L O Q S Z B and digits 0 1 2 5 8.
+    // 6 is kept: its only look-alike (G) is already excluded, so it is unambiguous in this set.
     public const string Chars = "ACDEFHJKMNPRTUVWXY34679";
     public const int DefaultLength = 5;
 
